@@ -13,6 +13,7 @@
 		464FB94D1A0918C10058FCA0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 464FB94B1A0918C10058FCA0 /* LaunchScreen.xib */; };
 		464FB9591A0918C10058FCA0 /* ItunesAutolayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464FB9581A0918C10058FCA0 /* ItunesAutolayoutTests.m */; };
 		46BDFBB51A091C7B004DC74A /* AlbumsAutoLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDFBB41A091C7B004DC74A /* AlbumsAutoLayoutViewController.m */; };
+		46BDFBBB1A0928DB004DC74A /* AlbumDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDFBBA1A0928DB004DC74A /* AlbumDetails.m */; };
 		E15E6D88305B2779F68175A7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D3F51686A8F14C68B9B57A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,8 @@
 		464FB9581A0918C10058FCA0 /* ItunesAutolayoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItunesAutolayoutTests.m; sourceTree = "<group>"; };
 		46BDFBB31A091C7B004DC74A /* AlbumsAutoLayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumsAutoLayoutViewController.h; sourceTree = "<group>"; };
 		46BDFBB41A091C7B004DC74A /* AlbumsAutoLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumsAutoLayoutViewController.m; sourceTree = "<group>"; };
+		46BDFBB91A0928DB004DC74A /* AlbumDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumDetails.h; sourceTree = "<group>"; };
+		46BDFBBA1A0928DB004DC74A /* AlbumDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumDetails.m; sourceTree = "<group>"; };
 		905731FC4468AA3A519661E3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D0748ECD97D5F62A02C017B4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D9D3F51686A8F14C68B9B57A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,12 +89,14 @@
 		464FB93B1A0918C10058FCA0 /* ItunesAutolayout */ = {
 			isa = PBXGroup;
 			children = (
+				46BDFBBC1A09304A004DC74A /* CollectionViewCells */,
+				46BDFBB81A0928BE004DC74A /* Modal */,
+				46BDFBB31A091C7B004DC74A /* AlbumsAutoLayoutViewController.h */,
+				46BDFBB41A091C7B004DC74A /* AlbumsAutoLayoutViewController.m */,
 				464FB9401A0918C10058FCA0 /* AppDelegate.h */,
 				464FB9411A0918C10058FCA0 /* AppDelegate.m */,
 				464FB9491A0918C10058FCA0 /* Images.xcassets */,
 				464FB94B1A0918C10058FCA0 /* LaunchScreen.xib */,
-				46BDFBB31A091C7B004DC74A /* AlbumsAutoLayoutViewController.h */,
-				46BDFBB41A091C7B004DC74A /* AlbumsAutoLayoutViewController.m */,
 				464FB93C1A0918C10058FCA0 /* Supporting Files */,
 			);
 			path = ItunesAutolayout;
@@ -121,6 +126,22 @@
 				464FB9571A0918C10058FCA0 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		46BDFBB81A0928BE004DC74A /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				46BDFBB91A0928DB004DC74A /* AlbumDetails.h */,
+				46BDFBBA1A0928DB004DC74A /* AlbumDetails.m */,
+			);
+			name = Modal;
+			sourceTree = "<group>";
+		};
+		46BDFBBC1A09304A004DC74A /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CollectionViewCells;
 			sourceTree = "<group>";
 		};
 		930CAB80CB8E3114A5151CF8 /* Pods */ = {
@@ -274,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46BDFBBB1A0928DB004DC74A /* AlbumDetails.m in Sources */,
 				464FB9421A0918C10058FCA0 /* AppDelegate.m in Sources */,
 				46BDFBB51A091C7B004DC74A /* AlbumsAutoLayoutViewController.m in Sources */,
 				464FB93F1A0918C10058FCA0 /* main.m in Sources */,
