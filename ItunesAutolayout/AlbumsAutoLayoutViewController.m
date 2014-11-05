@@ -9,6 +9,7 @@
 #import "AlbumsAutoLayoutViewController.h"
 #import "ItunesSearch.h"
 #import "AlbumDetails.h"
+#import "LargeAlbumCell.h"
 
 @interface AlbumsAutoLayoutViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (strong) UICollectionView *collectionView;
@@ -29,48 +30,62 @@
     [self.collectionView setDataSource:self];
     [self.collectionView setDelegate:self];
     self.collectionView.alwaysBounceVertical = YES;
+    self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.collectionView];
     
+    NSDictionary *views = @{@"collectionView":self.collectionView};
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[collectionView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[collectionView]|" options:0 metrics:nil views:views]];
+    
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
-    [self.collectionView setBackgroundColor:[UIColor redColor]];
+    [self.collectionView registerClass:[LargeAlbumCell class] forCellWithReuseIdentifier:@"largeAlbumCell"];
+    [self.collectionView setBackgroundColor:[UIColor blackColor]];
  
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.tintColor = [UIColor blueColor];
+    self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self action:@selector(loadAlbums) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:self.refreshControl];
 
     [self loadAlbums];
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    self.collectionView.frame = self.view.bounds;
-}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 15;
+    return self.albumDetailsArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor blueColor];
+    LargeAlbumCell *cell = (LargeAlbumCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"largeAlbumCell" forIndexPath:indexPath];
+    [cell setAlbumDetails:[self.albumDetailsArray objectAtIndex:indexPath.row]];
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(50, 50);
+    return CGSizeMake(150, 100);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(0, 10.0, 0, 10.0);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 0.0;
 }
 
 - (void)loadAlbums {
     [[ItunesSearch sharedInstance] getAlbumsForArtist:[self getRandomArtId] limitOrNil:@200 successHandler:^(NSArray *result) {
         NSMutableArray *albumArray = [NSMutableArray new];
         AlbumDetails *albumDetails;
+
+        self.title = [NSString stringWithFormat:@"%@ Albums", [(NSDictionary *)[result lastObject]objectForKey:@"artistName"]];
+                      
         for (NSDictionary *albumDictionary in result) {
             albumDetails = [[AlbumDetails alloc] initWithAlbumDictionary:albumDictionary];
             [albumArray addObject:albumDetails];
         }
         self.albumDetailsArray = [albumArray copy];
         [self.refreshControl endRefreshing];
+        [self.collectionView reloadData];
     } failureHandler:^(NSError *error) {
         NSLog(@"error: %@", error);
         [self.refreshControl endRefreshing];
@@ -78,7 +93,7 @@
 }
 
 - (NSNumber *)getRandomArtId {
-    return [self.artistIds objectAtIndex:arc4random() %((self.artistIds.count)-1)];
+    return [self.artistIds objectAtIndex:arc4random() %((self.artistIds.count))];
 }
 
 @end
